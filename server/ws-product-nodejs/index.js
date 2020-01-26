@@ -2,9 +2,11 @@ const express = require('express');
 const pg = require('pg');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const config = require('./config')
+const config = require('./config');
+const rateLimiter = require('./rateLimiter');
 const app = express();
 
+app.use(rateLimiter);
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
