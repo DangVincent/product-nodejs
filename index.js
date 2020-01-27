@@ -5,7 +5,12 @@ const cors = require('cors');
 const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
+const path = require('path')
 
+app.use(express.static(path.join(__dirname, 'client/build')))// Anything that doesn't match the above, send back index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
 // Support parsing of application/json type post data
