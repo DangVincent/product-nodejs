@@ -6,6 +6,7 @@ const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
 
+// Implement rate-limiting on API endpoints
 app.use(rateLimiter);
 // Support parsing of application/json type post data
 app.use(bodyParser.json());

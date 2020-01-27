@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import EventsChart from './EventsChart';
+import Swal from 'sweetalert2'
 
 export default class GetEvents extends Component {
 
@@ -13,10 +14,10 @@ export default class GetEvents extends Component {
     }
 
     componentDidMount() {
-        this.getAPIData('events/hourly');
+        this.getEventsData('events/hourly');
     }
 
-    getAPIData = (url) => {
+    getEventsData = (url) => {
         axios({
             method:'GET',
             url: `http://localhost:5555/${url}`,
@@ -29,14 +30,18 @@ export default class GetEvents extends Component {
                 isLoading: false
             });
         })
-        .catch(err => {
-            console.log(err);
+        .catch(() => {
+            Swal.fire(
+                'Error', 
+                'You have made too many requests, please wait a minute!', 
+                'error'
+            );
         });
     }
 
     render() {
         const {
-            getAPIData,
+            getEventsData,
             state: {
                 eventsData,
                 isLoading
@@ -44,15 +49,15 @@ export default class GetEvents extends Component {
         } = this;
 
         return (
-            <div>
+            <section className={"events"}>
                 { isLoading ? null : <EventsChart chartData={eventsData} /> }
-                <button onClick={() => getAPIData('events/hourly')}>
+                <button onClick={() => getEventsData('events/hourly')}>
                     Hourly
                 </button>
-                <button onClick={() => getAPIData('events/daily')}>
+                <button onClick={() => getEventsData('events/daily')}>
                     Daily
                 </button>
-            </div>
+            </section>
         );
     }
 };

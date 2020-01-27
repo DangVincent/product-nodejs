@@ -1,12 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2'
+import DataTable from './DataTable';
 
-export default function GetPOI() {
+export default class GetPOI extends Component {
 
-    return (
-        <div>
-            {/* <button onClick={() => setUrl('poi')}>
-                Click Me!
-            </button> */}
-        </div>
-    );
+    constructor() {
+        super();
+        this.state = {
+            poiData: '',
+            isLoading: true
+        };
+    }
+
+    componentDidMount() {
+        axios({
+            method:'GET',
+            url: `http://localhost:5555/poi`,
+            dataResponse: 'json',
+        })
+        .then((res) => {
+            const {data} = res;
+            this.setState({
+                poiData: data,
+                isLoading: false
+            });
+        })
+        .catch(() => {
+            Swal.fire(
+                'Error', 
+                'You have made too many requests, please wait a minute!', 
+                'error'
+            );
+        });
+    }
+
+    render() {
+        const {
+            poiData,
+            isLoading
+        } = this.state;
+
+        return (
+            <section className={"poi"}>
+                { isLoading ? null : <DataTable dataTableData={poiData} />}
+            </section>
+        );
+    }
 };

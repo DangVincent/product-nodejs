@@ -77,7 +77,8 @@ export default class EventsChart extends Component {
                                 label: chartTitle,
                                 backgroundColor: 'rgba(255, 255, 255, 0)',
                                 borderColor: 'rgb(0, 0, 0)',
-                                data: events
+                                pointBackgroundColor: 'black',
+                                data: events,
                             }]
                         }}
                         options={{
@@ -86,7 +87,7 @@ export default class EventsChart extends Component {
                             title: {
                                 text: 'Events Chart',
                                 display: true,
-                                fontSize: 30,
+                                fontSize: 25,
                                 fontColor: 'black'
                             },
                             scales: {
