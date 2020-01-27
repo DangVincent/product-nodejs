@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import EventsChart from './EventsChart';
 
 export default class GetEvents extends Component {
 
     constructor() {
         super();
         this.state = {
-            data: ''
+            eventsData: '',
+            isLoading: true
         };
     }
 
@@ -21,10 +23,10 @@ export default class GetEvents extends Component {
             dataResponse: 'json',
         })
         .then((res) => {
+            const {data} = res;
             this.setState({
-                data: res.data
-            }, function() {
-                console.log(this.state.data[0])
+                eventsData: data,
+                isLoading: false
             });
         })
         .catch(err => {
@@ -35,10 +37,15 @@ export default class GetEvents extends Component {
     render() {
         const {
             getAPIData,
+            state: {
+                eventsData,
+                isLoading
+            },
         } = this;
 
         return (
             <div>
+                { isLoading ? null : <EventsChart chartData={eventsData} /> }
                 <button onClick={() => getAPIData('events/hourly')}>
                     Hourly
                 </button>
