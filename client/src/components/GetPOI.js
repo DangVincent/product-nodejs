@@ -16,7 +16,7 @@ export default class GetPOI extends Component {
     componentDidMount() {
         axios({
             method:'GET',
-            url: `http://localhost:5555/poi`,
+            url: `/poi`,
             dataResponse: 'json',
         })
         .then((res) => {

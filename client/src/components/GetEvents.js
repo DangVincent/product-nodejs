@@ -20,7 +20,7 @@ export default class GetEvents extends Component {
     getEventsData = (url) => {
         axios({
             method:'GET',
-            url: `http://localhost:5555/${url}`,
+            url: `/${url}`,
             dataResponse: 'json',
         })
         .then((res) => {
