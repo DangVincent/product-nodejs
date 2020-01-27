@@ -10,7 +10,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuil": "cd redis && redis-server.exe",
+    "heroku-prebuild": "cd redis && redis-server.exe",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
