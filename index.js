@@ -16,10 +16,10 @@ const router = express.Router()
 // app.use('/stats/daily', router);
 // app.use('/poi', router);
 
-app.use(express.static(path.join(__dirname, 'client/build')))// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
+// app.use(express.static(path.join(__dirname, 'client/build')))// Anything that doesn't match the above, send back index.html
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'))
+// })
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
