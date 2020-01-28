@@ -17,7 +17,9 @@ app.use('/stats/daily', router);
 app.use('/poi', router);
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
@@ -99,11 +101,6 @@ app.get('/poi', (req, res, next) => {
   `
   return next()
 }, queryHandler)
-
-// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
 
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
