@@ -5,11 +5,12 @@ const cors = require('cors');
 const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
-const path = require('path')
-const router = express.Router()
+const path = require('path');
+const router = express.Router();
 
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
+app.use(router);
 
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -23,12 +24,11 @@ app.use(
 app.use(cors());
 
 const staticFiles = express.static(path.join(__dirname, '/client/build'));
-
 app.use(staticFiles);
   
-// app.get('/', (req, res) => {
-//   res.send('Welcome to EQ Works 😎')
-// });
+app.get('/', (req, res) => {
+  res.send('Welcome to EQ Works 😎')
+});
 
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
@@ -39,6 +39,10 @@ const queryHandler = (req, res, next) => {
     return res.json(r.rows || [])
   }).catch(next)
 }
+
+app.get('/', (req, res) => {
+  res.send('Welcome to EQ Works 😎')
+})
 
 app.get('/events/hourly', (req, res, next) => {
   req.sqlQuery = `
@@ -102,10 +106,7 @@ app.listen(process.env.PORT || 5555, (err) => {
   }
 })
 
-app.use(router);
-
 app.use('/*', staticFiles);
-
 // last resorts
 process.on('uncaughtException', (err) => {
   console.log(`Caught exception: ${err}`)
