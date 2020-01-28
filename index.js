@@ -26,9 +26,9 @@ const staticFiles = express.static(path.join(__dirname, '/client/build'));
 
 app.use(staticFiles);
   
-app.get('/', (req, res) => {
-  res.send('Welcome to EQ Works 😎')
-});
+// app.get('/', (req, res) => {
+//   res.send('Welcome to EQ Works 😎')
+// });
 
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
@@ -39,10 +39,6 @@ const queryHandler = (req, res, next) => {
     return res.json(r.rows || [])
   }).catch(next)
 }
-
-// app.get('/', (req, res) => {
-//   res.send('Welcome to EQ Works 😎')
-// })
 
 app.get('/events/hourly', (req, res, next) => {
   req.sqlQuery = `
