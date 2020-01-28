@@ -5,7 +5,6 @@ const cors = require('cors');
 const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
-const path = require('path');
 
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
