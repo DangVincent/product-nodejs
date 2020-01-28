@@ -13,6 +13,7 @@ export default class DataTable extends Component {
         };
     }
 
+    // Update userInput state whenever user types in the search bar
     handleChange = (e) => {
         this.setState({
             userInput: e.target.value
@@ -20,6 +21,7 @@ export default class DataTable extends Component {
         this.handleFuzzySearch(e.target.value);
     }
 
+    // Filter out the data based on userInput
     handleFuzzySearch = (searchInput) => {
         const {
             dataTableData
@@ -55,6 +57,7 @@ export default class DataTable extends Component {
             }
         } = this;
 
+        // Create column headers for each type of data
         const columns = [{
             Header: 'POI ID',
             accessor: 'poi_id',

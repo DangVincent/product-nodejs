@@ -13,10 +13,11 @@ export default class GetPOI extends Component {
         };
     }
 
+    // Make axios request to API and retrieve the data
     componentDidMount() {
         axios({
             method:'GET',
-            url: `/poi`,
+            url: `poi`,
             dataResponse: 'json',
         })
         .then((res) => {

@@ -18,6 +18,7 @@ export default class EventsChart extends Component {
         this.getChartData();
     }
 
+    // Pull and sort out the data passed from the parent component
     getChartData() {
         const { chartData } = this.props;
         let dates = [];
@@ -46,9 +47,9 @@ export default class EventsChart extends Component {
                 events: events, 
             });
         });
-
     }
 
+    // Whenever the chart data changes, update the states
     componentDidUpdate(prevProps) {
         if(this.props.chartData !== prevProps.chartData) { 
             this.getChartData();

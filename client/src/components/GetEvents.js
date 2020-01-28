@@ -17,10 +17,11 @@ export default class GetEvents extends Component {
         this.getEventsData('events/hourly');
     }
 
+    // Make axios request to API and retrieve the data
     getEventsData = (url) => {
         axios({
             method:'GET',
-            url: `/${url}`,
+            url: `${url}`,
             dataResponse: 'json',
         })
         .then((res) => {
