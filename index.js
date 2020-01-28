@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: false,
   })
 );
 // Enables CORS to respond to preflight requests
@@ -26,9 +26,9 @@ app.use(cors());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
   
-// app.get('/', (req, res) => {
-//   res.send('Welcome to EQ Works 😎')
-// });
+app.get('/', (req, res) => {
+  res.send('Welcome to EQ Works 😎')
+});
 
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
