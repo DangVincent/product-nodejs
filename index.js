@@ -6,6 +6,8 @@ const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
 const path = require('path')
+const router = express.Router()
+
 
 app.use(express.static(path.join(__dirname, 'client/build')))// Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
@@ -23,6 +25,7 @@ app.use(
 );
 // Enables CORS to respond to preflight requests
 app.use(cors());
+app.use('/', router)
 
 app.get('/', (req, res) => {
   res.send('Welcome to EQ Works 😎')
