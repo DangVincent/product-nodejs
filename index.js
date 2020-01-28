@@ -9,20 +9,19 @@ const app = express();
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
 
-// Support parsing of application/json type post data
-app.use(bodyParser.json());
-// Support parsing of application/x-www-form-urlencoded post data
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
+// // Support parsing of application/json type post data
+// app.use(bodyParser.json());
+// // Support parsing of application/x-www-form-urlencoded post data
+// app.use(
+//   bodyParser.urlencoded({
+//     extended: false,
+//   })
+// );
 // Enables CORS to respond to preflight requests
 // app.use(cors());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
   
 app.get('/', (req, res) => {
   res.send('Welcome to EQ Works 😎')
@@ -90,6 +89,10 @@ app.get('/poi', (req, res, next) => {
   `
   return next()
 }, queryHandler)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
