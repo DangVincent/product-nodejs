@@ -6,7 +6,6 @@ const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
 const path = require('path');
-const router = express.Router();
 
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
@@ -92,10 +91,6 @@ app.get('/poi', (req, res, next) => {
   `
   return next()
 }, queryHandler)
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
 
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
