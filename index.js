@@ -16,7 +16,9 @@ app.use('/stats/hourly', router)
 app.use('/stats/daily', router);
 app.use('/poi', router);
 
-app.use(express.static(path.join(__dirname, 'client/build')))
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
