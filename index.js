@@ -8,13 +8,18 @@ const app = express();
 const path = require('path')
 const router = express.Router()
 
+// Implement rate-limiting on API endpoints
+app.use(rateLimiter);
+app.use('/events/hourly', router);
+app.use('/events/daily', router);
+app.use('/stats/hourly', router)
+app.use('/stats/daily', router);
+app.use('/poi', router);
 
 app.use(express.static(path.join(__dirname, 'client/build')))// Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
-// Implement rate-limiting on API endpoints
-app.use(rateLimiter);
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
@@ -25,7 +30,6 @@ app.use(
 );
 // Enables CORS to respond to preflight requests
 app.use(cors());
-app.use('/', router)
 
 app.get('/', (req, res) => {
   res.send('Welcome to EQ Works 😎')
