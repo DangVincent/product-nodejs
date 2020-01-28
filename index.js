@@ -18,7 +18,7 @@ app.use(
   })
 );
 // Enables CORS to respond to preflight requests
-app.use(cors());
+// app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
