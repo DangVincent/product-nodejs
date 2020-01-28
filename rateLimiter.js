@@ -1,6 +1,14 @@
 const redis = require('redis');
-const redisClient = redis.createClient();
 const moment = require('moment');
+
+// Check for redis url and create client
+let redisClient;
+if (process.env.REDIS_URL) {
+    redisClient = redis.createClient(process.env.REDIS_URL)
+    // Run on server otherwise.
+} else {
+    redisClient = redis.createClient()
+}
 
 module.exports = (req, res, next) => {
     redisClient.exists(req.headers.user, (err, reply) => {
