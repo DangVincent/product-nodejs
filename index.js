@@ -23,8 +23,9 @@ app.use(
 // Enables CORS to respond to preflight requests
 app.use(cors());
 
-const staticFiles = express.static(path.join(__dirname, '/client/build'));
-app.use(staticFiles);
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
   
 app.get('/', (req, res) => {
   res.send('Welcome to EQ Works 😎')
@@ -39,10 +40,6 @@ const queryHandler = (req, res, next) => {
     return res.json(r.rows || [])
   }).catch(next)
 }
-
-app.get('/', (req, res) => {
-  res.send('Welcome to EQ Works 😎')
-})
 
 app.get('/events/hourly', (req, res, next) => {
   req.sqlQuery = `
@@ -106,7 +103,6 @@ app.listen(process.env.PORT || 5555, (err) => {
   }
 })
 
-app.use('/*', staticFiles);
 // last resorts
 process.on('uncaughtException', (err) => {
   console.log(`Caught exception: ${err}`)
