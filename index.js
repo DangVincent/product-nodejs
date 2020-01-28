@@ -10,16 +10,7 @@ const router = express.Router()
 
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
-app.use('/events/hourly', router);
-app.use('/events/daily', router);
-app.use('/stats/hourly', router)
-app.use('/stats/daily', router);
-app.use('/poi', router);
 
-// Serve static files from the React frontend app
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
 // Support parsing of application/x-www-form-urlencoded post data
@@ -31,6 +22,10 @@ app.use(
 // Enables CORS to respond to preflight requests
 app.use(cors());
 
+const staticFiles = express.static(path.join(__dirname, '/client/build'));
+
+app.use(staticFiles);
+  
 app.get('/', (req, res) => {
   res.send('Welcome to EQ Works 😎')
 });
@@ -110,6 +105,10 @@ app.listen(process.env.PORT || 5555, (err) => {
     console.log(`Running on ${process.env.PORT || 5555}`)
   }
 })
+
+app.use(router);
+
+app.use('/*', staticFiles);
 
 // last resorts
 process.on('uncaughtException', (err) => {
