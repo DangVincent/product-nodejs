@@ -8,13 +8,13 @@ const app = express();
 const path = require('path')
 const router = express.Router()
 
-// Implement rate-limiting on API endpoints
-app.use(rateLimiter);
-app.use('/events/hourly', router);
-app.use('/events/daily', router);
-app.use('/stats/hourly', router)
-app.use('/stats/daily', router);
-app.use('/poi', router);
+// // Implement rate-limiting on API endpoints
+// app.use(rateLimiter);
+// app.use('/events/hourly', router);
+// app.use('/events/daily', router);
+// app.use('/stats/hourly', router)
+// app.use('/stats/daily', router);
+// app.use('/poi', router);
 
 app.use(express.static(path.join(__dirname, 'client/build')))// Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
