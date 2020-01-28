@@ -48,7 +48,7 @@ app.get('/events/hourly', (req, res, next) => {
     LIMIT 168;
   `
   return next()
-}, queryHandler)
+}, queryHandler);
 
 app.get('/events/daily', (req, res, next) => {
   req.sqlQuery = `
@@ -59,7 +59,7 @@ app.get('/events/daily', (req, res, next) => {
     LIMIT 7;
   `
   return next()
-}, queryHandler)
+}, queryHandler);
 
 app.get('/stats/hourly', (req, res, next) => {
   req.sqlQuery = `
@@ -69,7 +69,7 @@ app.get('/stats/hourly', (req, res, next) => {
     LIMIT 168;
   `
   return next()
-}, queryHandler)
+}, queryHandler);
 
 app.get('/stats/daily', (req, res, next) => {
   req.sqlQuery = `
@@ -83,7 +83,7 @@ app.get('/stats/daily', (req, res, next) => {
     LIMIT 7;
   `
   return next()
-}, queryHandler)
+}, queryHandler);
 
 app.get('/poi', (req, res, next) => {
   req.sqlQuery = `
@@ -93,6 +93,10 @@ app.get('/poi', (req, res, next) => {
   return next()
 }, queryHandler)
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
+
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
     console.error(err)
@@ -100,14 +104,14 @@ app.listen(process.env.PORT || 5555, (err) => {
   } else {
     console.log(`Running on ${process.env.PORT || 5555}`)
   }
-})
+});
 
 // last resorts
 process.on('uncaughtException', (err) => {
   console.log(`Caught exception: ${err}`)
   process.exit(1)
-})
+});
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason)
   process.exit(1)
-})
+});
