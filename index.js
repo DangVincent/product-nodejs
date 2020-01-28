@@ -10,7 +10,6 @@ const router = express.Router();
 
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
-app.use('/', router);
 
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -93,7 +92,7 @@ app.get('/poi', (req, res, next) => {
   return next()
 }, queryHandler)
 
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
