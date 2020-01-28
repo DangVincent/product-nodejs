@@ -6,11 +6,11 @@ const config = require('./config');
 const rateLimiter = require('./rateLimiter');
 const app = express();
 const path = require('path');
-const router = express.Router();
+// const router = express.Router();
 
 // Implement rate-limiting on API endpoints
 app.use(rateLimiter);
-app.use(router);
+// app.use('/', router);
 
 // Support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -23,13 +23,12 @@ app.use(
 // Enables CORS to respond to preflight requests
 app.use(cors());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
   
-app.get('/', (req, res) => {
-  res.send('Welcome to EQ Works 😎')
-});
+// app.get('/', (req, res) => {
+//   res.send('Welcome to EQ Works 😎')
+// });
 
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
@@ -93,6 +92,10 @@ app.get('/poi', (req, res, next) => {
   `
   return next()
 }, queryHandler)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
