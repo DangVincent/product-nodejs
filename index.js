@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 
 // Implement rate-limiting on API endpoints
-app.use(rateLimiter);
+// app.use(rateLimiter);
 
 // // Support parsing of application/json type post data
 // app.use(bodyParser.json());
