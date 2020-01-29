@@ -7,7 +7,7 @@
     "node": "10"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "npm run server",
     "server": "node index.js",
     "client": "node startClient.js",
     "dev": "nodemon index.js",
