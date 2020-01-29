@@ -8,18 +8,18 @@ const path = require('path');
 const app = express();
 
 // Implement rate-limiting on API endpoints
-// app.use(rateLimiter);
+app.use(rateLimiter);
 
-// // Support parsing of application/json type post data
-// app.use(bodyParser.json());
-// // Support parsing of application/x-www-form-urlencoded post data
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: false,
-//   })
-// );
+// Support parsing of application/json type post data
+app.use(bodyParser.json());
+// Support parsing of application/x-www-form-urlencoded post data
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 // Enables CORS to respond to preflight requests
-// app.use(cors());
+app.use(cors());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
