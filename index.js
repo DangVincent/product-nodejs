@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config');
 const rateLimiter = require('./rateLimiter');
+const path = require('path');
 const app = express();
 
 // Implement rate-limiting on API endpoints
